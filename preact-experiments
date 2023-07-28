@@ -1,0 +1,102 @@
+import { h } from "preact";
+
+
+/*
+export function Content() {
+  return (
+    <div class="oj-web-applayout-max-width oj-web-applayout-content">
+      <h3>Hello World!</h3>
+    </div>
+  );
+};
+*/
+
+
+import { createElement, render } from 'preact';
+import { useState } from 'preact/hooks';
+
+/* API method for creating virtual DOM */
+let vdom1 = createElement(
+  'h3', {class: 'big'}, 'Hello Virtual DOM World'
+);
+
+/* JSX/TSX for creating virtual DOM */
+let vdom2 = <h3 class='big'>Hello JSX for VDOM World</h3>;
+
+/* Using values in TSX */
+let value = Math.random() > 0.5 ? 'big' : 'small';
+let vdom3 = <h3 class={value}>Hello JSX for VDOM World {40 + 10}</h3>;
+
+/* Adding style */
+let vdom4 = <h3 class={value} style={ { color: 'red' } }>Hello <em>JSX for VDOM World</em> {40 + 10}</h3>;
+
+/*Creating functions for returning JSX */
+/*When returning you should have only one parent */
+
+function clicked(){
+  console.log("Button Clicked!")
+}
+
+function App(){
+
+  function clicked_local(){
+    console.log("Button Clicked!")
+  }
+
+  return (
+    <div>
+        <h1>Hello World!</h1>
+        <h3 class={value} style={ { color: 'green' } }>
+          Hello <em>JSX for VDOM World</em> 
+        </h3>
+        <button onClick={clicked}>Click Me</button>
+        <button onClick={clicked_local}>Click Me</button>
+        {vdom1}
+    </div>
+  )
+}
+
+/* props */
+
+function MyButton(props){
+  return <button style={props.style} onClick={props.onClick}>{props.children}</button>
+}
+
+function App2(){
+  const click_action = () => {
+    console.log("Hello World!")
+  }
+
+  return(
+    <div>
+      <MyButton style={{color: 'blue'}} onClick={click_action}>Click</MyButton>
+    </div>
+  )
+}
+
+/* states and hooks */
+
+
+// state -> component's stored data
+// hook -> special function, called within a function component, it remembers the values across renders
+
+
+function App3(){
+  const [count, setCount] = useState(0)
+
+  const click_action = () => {
+    setCount(count + 1)
+  }
+
+  return (
+    <div>
+      <h4>Count : {count}</h4>
+      <MyButton style={{color: 'blue'}} onClick={click_action}>Click</MyButton>
+    </div>
+  )
+}
+
+render(<App3 />, document.body);
+
+
+
